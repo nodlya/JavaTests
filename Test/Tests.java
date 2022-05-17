@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -28,17 +31,17 @@ public class Tests {
     }
 
     @Test
-    void TestHex1(){
+    void TestHex(){
         assertEquals(11, Integer.decode("0xB"));
     }
 
     @Test
-    void TestHex2(){
+    void TestNegativeHex(){
         assertEquals(-11, Integer.decode("-0xB"));
     }
 
     @Test
-    void TestHex3(){
+    void TestNegativeHashtagHex(){
         assertEquals(-17, Integer.decode("-#11"));
     }
 
@@ -58,7 +61,17 @@ public class Tests {
     }
 
     @Test
-    void TestTrue(){
+    void TestSystems(){
         Assertions.assertNotEquals(Integer.decode("012"), Integer.decode("12"));
+    }
+
+    @Test
+    void TestCatchMinValue(){
+        assertEquals(Optional.of(Integer.MIN_VALUE), Optional.of(Integer.decode("-2147483648")));
+    }
+
+    @Test
+    void TestCatchMaxValue(){
+        assertEquals(Optional.of(Integer.MAX_VALUE), Optional.of(Integer.decode("2147483647")));
     }
 }
